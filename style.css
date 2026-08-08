@@ -1,11 +1,12 @@
 :root {
-    --bg-dark: #0b132b;
+    --bg-dark: #0a1128;
     --card-bg: #1c2541;
-    --accent-blue: #3a506b;
+    --accent-blue: #2563eb;
     --btn-blue: #1d4ed8;
-    --btn-hover: #2563eb;
+    --btn-hover: #3b82f6;
     --gold: #f59e0b;
     --gold-light: #fbbf24;
+    --gold-glow: rgba(245, 158, 11, 0.4);
     --danger: #ef4444;
     --success: #10b981;
     --text-main: #f1f5f9;
@@ -25,79 +26,174 @@ body {
     min-height: 100vh;
 }
 
+/* =========================================================
+   ОБНОВЛЕННАЯ ШАПКА C ДЕКОРАТИВНЫМИ ЛИНИЯМИ И ГЕРБОМ УВД
+   ========================================================= */
+
 header {
-    background-color: var(--card-bg);
+    position: relative;
+    background: 
+        /* Светящиеся диагональные технологичные линии */
+        repeating-linear-gradient(
+            45deg,
+            rgba(59, 130, 246, 0.03) 0px,
+            rgba(59, 130, 246, 0.03) 2px,
+            transparent 2px,
+            transparent 12px
+        ),
+        /* Тёмно-синий полицейский градиент */
+        linear-gradient(135deg, #09152a 0%, #111e38 45%, #1c2a4a 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    border-bottom: 2px solid var(--gold);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    padding: 18px 40px;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #f59e0b, #1d4ed8, #f59e0b) 1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
 
+/* Эффект рассеянного свечения на заднем фоне шапки */
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 50%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+}
+
+/* Декоративные геометрические акцентные линии */
+header::after {
+    content: '';
+    position: absolute;
+    right: 20%;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(105deg, transparent 40%, rgba(29, 78, 216, 0.15) 40%, rgba(29, 78, 216, 0.15) 42%, transparent 42%, transparent 48%, rgba(245, 158, 11, 0.1) 48%, rgba(245, 158, 11, 0.1) 49%, transparent 49%);
+    pointer-events: none;
+}
+
+/* Блок логотипа с Гербом / Эмблемой */
 .logo {
-    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.4rem;
     font-weight: 700;
     letter-spacing: 1px;
+    z-index: 2;
+    text-transform: uppercase;
 }
 
-.logo span {
+/* Иконка-герб МВД/УВД (Векторный полигональный щит с мечом) */
+.badge-icon {
+    width: 48px;
+    height: 48px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='gold' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23fbbf24'/><stop offset='100%' stop-color='%23d97706'/></linearGradient><linearGradient id='shield' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%231e3a8a'/><stop offset='100%' stop-color='%230f172a'/></linearGradient></defs><path d='M50 5 L88 20 V48 C88 72 50 95 50 95 C50 95 12 72 12 48 V20 Z' fill='url(%23shield)' stroke='url(%23gold)' stroke-width='4'/><path d='M50 15 L50 82 M32 30 L68 30' stroke='url(%23gold)' stroke-width='3' stroke-linecap='round'/><polygon points='50,22 56,36 70,36 58,45 63,59 50,50 37,59 42,45 30,36 44,36' fill='url(%23gold)' opacity='0.85'/></svg>") no-repeat center center;
+    background-size: contain;
+    filter: drop-shadow(0 0 8px var(--gold-glow));
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .badge-icon {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.logo-subtitle {
     color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 
+/* Правый блок шапки */
 .header-status {
     display: flex;
     align-items: center;
     gap: 12px;
+    z-index: 2;
 }
 
 .user-role-label {
-    background: #334155;
-    padding: 6px 12px;
+    background: rgba(51, 65, 85, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.1);
 }
 
 .badge-leader {
-    background: var(--gold) !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
     color: #000 !important;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 0 12px var(--gold-glow) !important;
 }
 
-/* Навигация по вкладкам */
+/* =========================================================
+   НАВИГАЦИЯ ПО ВКЛАДКАМ
+   ========================================================= */
+
 .nav-tabs {
     display: flex;
     justify-content: center;
-    background: #111827;
-    padding: 10px;
+    background: #0f172a;
+    padding: 12px;
     gap: 15px;
     border-bottom: 1px solid #1e293b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .tab-btn {
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
     color: var(--text-muted);
-    padding: 10px 20px;
+    padding: 10px 22px;
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
     border-radius: 8px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
 .tab-btn:hover {
     color: var(--text-main);
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .tab-btn.active {
-    background: var(--btn-blue);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
     color: #fff;
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4);
 }
 
+/* =========================================================
+   ОСНОВНОЙ КОНТЕНТ И ТАБЛИЦА
+   ========================================================= */
+
 main {
-    padding: 25px;
+    padding: 30px;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -108,14 +204,21 @@ main {
 
 .tab-content.active {
     display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Таблица состава */
 .table-container {
     background-color: var(--card-bg);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow-x: auto;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 1px solid #2e3b5e;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 table {
@@ -125,63 +228,74 @@ table {
 }
 
 th, td {
-    padding: 14px 18px;
+    padding: 15px 20px;
     border-bottom: 1px solid #2e3b5e;
 }
 
 th {
-    background-color: #151c33;
+    background-color: #111827;
     color: var(--gold-light);
     font-size: 0.85rem;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .category-header td {
-    background-color: #0f172a;
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
     color: var(--gold);
-    font-weight: bold;
-    font-size: 1rem;
-    border-left: 4px solid var(--gold);
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-left: 5px solid var(--gold);
 }
 
 tr.on-vacation {
-    opacity: 0.5;
+    opacity: 0.55;
     background-color: rgba(239, 68, 68, 0.05);
 }
 
-/* Карточки лекций, обучения и видео */
+/* =========================================================
+   КАРТОЧКИ (ЛЕКЦИИ, ОБУЧЕНИЕ, ВИДЕО)
+   ========================================================= */
+
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 22px;
 }
 
 .card {
     background: var(--card-bg);
     border: 1px solid #2e3b5e;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
 }
 
 .card h3 {
     color: var(--gold);
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
 }
 
 .card-text {
     white-space: pre-wrap;
     color: var(--text-main);
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 15px;
     background: #0f172a;
-    padding: 12px;
-    border-radius: 6px;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
     max-height: 250px;
     overflow-y: auto;
 }
@@ -193,45 +307,80 @@ tr.on-vacation {
     margin-top: 10px;
 }
 
-/* Кнопки */
+/* =========================================================
+   КНОПКИ И ЭЛЕМЕНТЫ УПРАВЛЕНИЯ
+   ========================================================= */
+
 .btn {
-    padding: 8px 16px;
+    padding: 9px 18px;
     border: none;
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
-.btn-login { background: var(--gold); color: #000; }
-.btn-login:hover { background: var(--gold-light); }
-.btn-add { background: var(--btn-blue); color: #fff; }
-.btn-add:hover { background: var(--btn-hover); }
-.btn-submit { background: var(--success); color: #fff; width: 100%; margin-top: 10px; }
-.btn-delete { background: var(--danger); color: #fff; padding: 4px 8px; font-size: 0.8rem; }
-.btn-fire { background: var(--danger); color: #fff; width: 100%; font-weight: bold; }
+.btn-login { 
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+    color: #000; 
+}
+.btn-login:hover { 
+    filter: brightness(1.1); 
+    box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.btn-add { 
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); 
+    color: #fff; 
+}
+.btn-add:hover { 
+    background: var(--btn-hover); 
+}
+
+.btn-submit { 
+    background: var(--success); 
+    color: #fff; 
+    width: 100%; 
+    margin-top: 15px; 
+    font-size: 1rem;
+}
+
+.btn-delete { 
+    background: var(--danger); 
+    color: #fff; 
+    padding: 5px 10px; 
+    font-size: 0.8rem; 
+}
+
+.btn-fire { 
+    background: var(--danger); 
+    color: #fff; 
+    width: 100%; 
+    font-weight: bold; 
+}
 
 .btn-status {
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 6px;
     border: none;
     font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
 }
-.status-act { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-.status-vac { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+
+.status-act { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); }
+.status-vac { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4); }
 
 .discipline-box {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     flex-wrap: wrap;
 }
 
 .badge-warn, .badge-rep {
     font-size: 0.75rem;
-    padding: 2px 6px;
+    padding: 3px 7px;
     border-radius: 4px;
     font-weight: bold;
 }
@@ -242,58 +391,72 @@ tr.on-vacation {
     background: #334155;
     color: #fff;
     border: none;
-    padding: 4px 8px;
+    padding: 5px 9px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.75rem;
+    transition: background 0.2s;
 }
 .btn-sm:hover { background: #475569; }
 
-/* Модальные окна */
+/* =========================================================
+   МОДАЛЬНЫЕ ОКНА
+   ========================================================= */
+
 .modal {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
     z-index: 1000;
 }
 
 .modal-content {
     background: var(--card-bg);
-    max-width: 500px;
-    margin: 80px auto;
-    padding: 25px;
-    border-radius: 10px;
+    max-width: 520px;
+    margin: 70px auto;
+    padding: 30px;
+    border-radius: 12px;
     border: 1px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
     position: relative;
 }
 
 .close-modal {
     position: absolute;
-    right: 15px; top: 10px;
-    font-size: 1.5rem;
+    right: 18px; top: 15px;
+    font-size: 1.6rem;
     cursor: pointer;
     color: var(--text-muted);
 }
 
+.close-modal:hover { color: #fff; }
+
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     font-size: 0.85rem;
     color: var(--text-muted);
 }
 
 .form-group input, .form-group select, .form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 11px;
     background: #0f172a;
     border: 1px solid #334155;
     border-radius: 6px;
     color: #fff;
+    font-size: 0.9rem;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
 }
 
 .hidden { display: none !important; }
