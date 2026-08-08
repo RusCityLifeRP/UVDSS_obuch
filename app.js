@@ -1,12 +1,12 @@
 // 1. Конфигурация Firebase Realtime Database
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyCm_VrQQuRcWBbaWXQ_X_kjjTIovnpbpnu",
+    authDomain: "uvd-ss.firebaseapp.com",
+    databaseURL: "https://uvd-ss-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "uvd-ss"",
+    storageBucket: "uvd-ss.fire base storage.app",
+    messagingSenderId: "182489841886",
+    appId: "1:182489841886:web:2dd0ed4d1549080b86424f"
 };
 
 // Инициализация Firebase
